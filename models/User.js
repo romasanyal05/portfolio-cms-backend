@@ -5,14 +5,15 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
+    password: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-// Method to compare password
-userSchema.methods.matchPassword = async function (password) {
-  return await bcrypt.compare(password, this.passwordHash);
+// password match function
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await
+   bcrypt.compare(enteredPassword, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);
